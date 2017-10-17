@@ -7,6 +7,7 @@ data_sub_dirs="nfbCCTV-N5-S-0.254-M_LBMixtureOfGaussians nfbCCTV-N5-S-10.8-M_LBM
 output_anno_list=${bash_dir}/alldata.txt
 output_anno_trainval_list=${bash_dir}/trainval.txt
 output_anno_test_list=${bash_dir}/test.txt
+output_test_name_size_file=${bash_dir}/test_name_size.txt
 
 echo "data_root_dir: $data_root_dir"
 echo "bash_dir: $bash_dir"
@@ -69,5 +70,9 @@ split -l $num_trainval_data ${output_anno_list} ${output_anno_list}.
 mv ${output_anno_list}.aa ${output_anno_trainval_list}
 mv ${output_anno_list}.ab ${output_anno_test_list}
 
-echo "${output_anno_trainval_list} and ${output_anno_test_list} has been created."
+echo "### ${output_anno_trainval_list} and ${output_anno_test_list} has been created."
+
+# Generate image name and size infomation.
+$bash_dir/../../build/tools/get_image_size $data_root_dir ${output_anno_test_list} ${output_test_name_size_file}
+echo "### ${output_test_name_size_file} has been created."
 
